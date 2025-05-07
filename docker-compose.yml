@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  dev:
+    image: andrijkoenig/dev-env:latest
+    container_name: dev-env
+    volumes:
+      - ./projects:/home/devuser/workspace
+    ports:
+      - "4200:4200"
+      - "8080:8080"
+      - "5000:5000"
+    environment:
+      - DOTNET_ENV=Development
+      - NODE_ENV=development
+      - JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
+      - CUSTOM_PATH=/home/devuser/bin
+    tty: true
+    stdin_open: true

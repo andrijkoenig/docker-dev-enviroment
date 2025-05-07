@@ -30,6 +30,9 @@ RUN git clone --branch v0.11.1 https://github.com/neovim/neovim.git /tmp/neovim 
 RUN git clone --depth 1 $NVIM_CONFIG_REPO $NVIM_CONFIG_DIR && \
     chown -R devuser:devuser $NVIM_CONFIG_DIR
 
+# Install plugins using Lazy CLI (headless)
+RUN nvim --headless "+Lazy! sync" +qa
+
 # Install .NET SDK 8
 RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
