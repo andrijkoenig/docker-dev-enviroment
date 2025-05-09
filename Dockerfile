@@ -48,7 +48,9 @@ RUN git clone --branch v0.11.1 https://github.com/neovim/neovim.git /tmp/neovim 
 
 # Install Neovim config (dotfiles)
 RUN git clone --depth 1 $NVIM_CONFIG_REPO $NVIM_CONFIG_DIR && \
-    chown -R devuser:devuser $NVIM_CONFIG_DIR
+    chown -R devuser:devuser $NVIM_CONFIG_DIR && \
+    mv $NVIM_CONFIG_DIR/.zshrc /home/devuser/.zshrc && \
+    chown devuser:devuser /home/devuser/.zshrc
 
 # Install Lazy.nvim plugin manager
 RUN git clone --depth=1 https://github.com/folke/lazy.nvim.git /home/devuser/.local/share/nvim/lazy/lazy.nvim && \
@@ -56,6 +58,10 @@ RUN git clone --depth=1 https://github.com/folke/lazy.nvim.git /home/devuser/.lo
 
 # Neovim Python support
 RUN pip3 install --break-system-packages pynvim
+
+
+
+RUN usermod -s /bin/zsh devuser
 
 # Set working directory and switch to non-root user
 WORKDIR /home/devuser
@@ -65,3 +71,7 @@ USER devuser
 RUN nvim --headless "+Lazy! sync" +qa
 RUN nvim --headless "+MasonUpdate" +qa
 RUN nvim --headless "+MasonInstall typescript-language-server lua-language-server tinymist jdtls omnisharp" +qa
+
+
+# Run zsh on container start
+CMD [ "zsh" ]
