@@ -59,8 +59,6 @@ RUN git clone --depth=1 https://github.com/folke/lazy.nvim.git /home/devuser/.lo
 # Neovim Python support
 RUN pip3 install --break-system-packages pynvim
 
-
-
 RUN usermod -s /bin/zsh devuser
 
 # Set working directory and switch to non-root user
@@ -72,6 +70,8 @@ RUN nvim --headless "+Lazy! sync" +qa
 RUN nvim --headless "+MasonUpdate" +qa
 RUN nvim --headless "+MasonInstall typescript-language-server lua-language-server tinymist jdtls omnisharp" +qa
 
+# Ensure the script is executable
+RUN chmod +x $NVIM_CONFIG_DIR/scripts/start_project_tmux_session.sh
 
-# Run zsh on container start
-CMD [ "zsh" ]
+# Set default command to run the tmux script
+CMD ["/home/devuser/.config/scripts/start_project_tmux_session.sh"]
