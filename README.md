@@ -27,6 +27,8 @@ function RunDockerEnvironment {
         [string[]]$Ports
     )
 
+	$PemFilePath = "PUT_PATH_HERE"
+
     # Determine container runtime
     $containerCmd = if (Get-Command docker -ErrorAction SilentlyContinue) {
         "docker"
@@ -44,7 +46,19 @@ function RunDockerEnvironment {
         "--rm"
         "-v", "$pwd/:/home/devuser/project"
     )
+	
+	if ($PemFilePath) {
+		if (-Not (Test-Path $PemFilePath)) {
+			Write-Error "Provided PEM file does not exist: $PemFilePath"
+			return
+		}
 
+		# Mount the PEM file into a known path inside the container
+		$resolvedPemPath = Resolve-Path $PemFilePath
+		$argsList += "-v"
+		$argsList += "$resolvedPemPath:/tmp/cert.pem"
+	}
+	
     # Add -p args if ports provided
     if ($Ports -and $Ports.Count -gt 0) {
         foreach ($port in $Ports) {
