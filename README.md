@@ -56,7 +56,7 @@ function RunDockerEnvironment {
 		# Mount the PEM file into a known path inside the container
 		$resolvedPemPath = Resolve-Path $PemFilePath
 		$argsList += "-v"
-		$argsList += "$resolvedPemPath:/tmp/cert.pem"
+		$argsList += "${resolvedPemPath}:/tmp/cert.pem"
 	}
 	
     # Add -p args if ports provided
