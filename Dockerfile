@@ -71,7 +71,7 @@ RUN nvim --headless "+MasonUpdate" +qa
 RUN nvim --headless "+MasonInstall typescript-language-server lua-language-server tinymist jdtls omnisharp" +qa
 
 # Ensure the script is executable
-RUN chmod +x $NVIM_CONFIG_DIR/scripts/start_project_tmux_session.sh
+RUN chmod +x $NVIM_CONFIG_DIR/scripts/container_startup_script.sh
 
 # Set default command to run the tmux script
-CMD ["/home/devuser/.config/scripts/start_project_tmux_session.sh"]
+CMD ["/home/devuser/.config/scripts/container_startup_script.sh"]
