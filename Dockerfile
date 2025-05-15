@@ -68,7 +68,7 @@ USER devuser
 # Install plugins and LSP servers using headless Neovim
 RUN nvim --headless "+Lazy! sync" +qa
 RUN nvim --headless "+MasonUpdate" +qa
-RUN nvim --headless "+MasonInstall typescript-language-server angularls lua-language-server tinymist jdtls omnisharp" +qa
+RUN nvim --headless "+MasonInstall typescript-language-server angular-language-server lua-language-server tinymist jdtls omnisharp" +qa
 
 # Ensure the script is executable
 RUN chmod +x $NVIM_CONFIG_DIR/scripts/container_startup_script.sh
