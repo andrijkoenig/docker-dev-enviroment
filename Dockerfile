@@ -39,6 +39,12 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
 RUN apt-get update && apt-get install -y openjdk-17-jdk && \
     rm -rf /var/lib/apt/lists/*
 
+# Install dotnet debugger
+RUN mkdir -p /opt/debuggers && \
+    wget -O /tmp/netcoredbg-linux-amd64.tar.gz https://github.com/Samsung/netcoredbg/releases/download/3.1.2-1054/netcoredbg-linux-amd64.tar.gz && \
+    tar -xzf /tmp/netcoredbg-linux-amd64.tar.gz -C /opt/debuggers
+
+
 # Clone and build Neovim from source
 RUN git clone --branch v0.11.1 https://github.com/neovim/neovim.git /tmp/neovim && \
     cd /tmp/neovim && \
@@ -68,7 +74,7 @@ USER devuser
 # Install plugins and LSP servers using headless Neovim
 RUN nvim --headless "+Lazy! sync" +qa
 RUN nvim --headless "+MasonUpdate" +qa
-RUN nvim --headless "+MasonInstall typescript-language-server angular-language-server lua-language-server tinymist jdtls omnisharp" +qa
+RUN nvim --headless "+MasonInstall typescript-language-server angular-language-server lua-language-server tinymist jdtls omnisharp html-lsp css-lsp tailwindcss-language-server emmet-ls prettier" +qa
 
 # Ensure the script is executable
 RUN chmod +x $NVIM_CONFIG_DIR/scripts/container_startup_script.sh
