@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y openjdk-17-jdk && \
     rm -rf /var/lib/apt/lists/*
 
 # Clone and build Neovim from source
-RUN git clone --branch nightly https://github.com/neovim/neovim.git /tmp/neovim && \
+RUN git clone --branch v0.11.4 https://github.com/neovim/neovim.git /tmp/neovim && \
     cd /tmp/neovim && \
     make CMAKE_BUILD_TYPE=Release && \
     make install && \
