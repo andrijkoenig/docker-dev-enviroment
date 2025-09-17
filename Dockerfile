@@ -47,7 +47,7 @@ RUN git clone --branch nightly https://github.com/neovim/neovim.git /tmp/neovim 
     rm -rf /tmp/neovim
 
 # Install Neovim config (dotfiles)
-RUN git clone --depth 1 $NVIM_CONFIG_REPO $NVIM_CONFIG_DIR && \
+RUN git clone --depth 1 --branch nightly $NVIM_CONFIG_REPO $NVIM_CONFIG_DIR && \
     chown -R devuser:devuser $NVIM_CONFIG_DIR && \
     mv $NVIM_CONFIG_DIR/.zshrc /home/devuser/.zshrc && \
     chown devuser:devuser /home/devuser/.zshrc
