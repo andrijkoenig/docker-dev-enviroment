@@ -18,11 +18,9 @@ RUN echo "devuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN apt-get update && apt-get install -y \
     curl wget git unzip software-properties-common gnupg2 lsb-release \
     build-essential gnupg \
-    ninja-build gettext cmake clangd-12 \
+    ninja-build gettext cmake clangd \
     ripgrep fzf tree tmux htop python3-pip zsh && \
     rm -rf /var/lib/apt/lists/*
-
-RUN update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-12 100
 
 # Install .NET SDK 8
 RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
