@@ -92,6 +92,7 @@ USER devuser
 
 # Install plugins and LSP servers using headless Neovim
 RUN nvim --headless "+Lazy! sync" +qa
+RUN nvim --headless -c "lua require'nvim-treesitter.install'.ensure_installed({'all'})" +qa
 
 # Ensure the script is executable
 RUN chmod +x $NVIM_CONFIG_DIR/scripts/container_startup_script.sh
