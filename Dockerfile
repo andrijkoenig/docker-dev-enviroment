@@ -15,9 +15,9 @@ RUN apt-get update && apt-get install -y sudo
 RUN echo "devuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Install system packages
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt install -y \
     curl wget git unzip software-properties-common gnupg2 lsb-release \
-    build-essential gnupg lazygit \
+    build-essential gnupg \
     ninja-build gettext cmake clangd \
     ripgrep fzf tree tmux htop python3-pip zsh && \
     rm -rf /var/lib/apt/lists/*
