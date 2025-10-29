@@ -17,7 +17,7 @@ RUN echo "devuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # Install system packages
 RUN apt-get update && apt-get install -y \
     curl wget git unzip software-properties-common gnupg2 lsb-release \
-    build-essential gnupg \
+    build-essential gnupg lazygit \
     ninja-build gettext cmake clangd \
     ripgrep fzf tree tmux htop python3-pip zsh && \
     rm -rf /var/lib/apt/lists/*
@@ -92,7 +92,7 @@ USER devuser
 
 # Install plugins and LSP servers using headless Neovim
 RUN nvim --headless "+Lazy! sync" +qa
-RUN nvim --headless -c ":TSUpdate all" +qa
+RUN nvim --headless ":TSUpdate all" +qa
 
 # Ensure the script is executable
 RUN chmod +x $NVIM_CONFIG_DIR/scripts/container_startup_script.sh
