@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y sudo
 RUN echo "devuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Install system packages
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt install -y \
     curl wget git unzip software-properties-common gnupg2 lsb-release \
     build-essential gnupg \
     ninja-build gettext cmake clangd \
@@ -75,11 +75,11 @@ RUN curl -LO https://github.com/LuaLS/lua-language-server/releases/download/3.15
     ln -s /opt/lua-language-server/bin/lua-language-server /usr/local/bin/lua-language-server && \
     rm lua-language-server-3.15.0-linux-x64.tar.gz
 
-# Roylyn (C# LSP)
+# Roslyn (C# LSP)
 RUN curl -LO https://www.nuget.org/api/v2/package/Microsoft.CodeAnalysis.LanguageServer.neutral/5.0.0-1.25277.114 && \
-    mkdir -p /opt/royslin && \
+    mkdir -p /opt/roslyn && \
     unzip 5.0.0-1.25277.114 -d /tmp/lsp && \
-    mv /tmp/lsp/content/LanguageServer/neutral /opt/royslin
+    mv /tmp/lsp/content/LanguageServer/neutral /opt/roslyn
 
 
 # ========================
@@ -92,7 +92,7 @@ USER devuser
 
 # Install plugins and LSP servers using headless Neovim
 RUN nvim --headless "+Lazy! sync" +qa
-RUN nvim --headless -c "lua require'nvim-treesitter.install'.ensure_installed({'all'})" +qa
+RUN nvim --headless ":TSUpdate all" +qa
 
 # Ensure the script is executable
 RUN chmod +x $NVIM_CONFIG_DIR/scripts/container_startup_script.sh
