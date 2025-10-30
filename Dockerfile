@@ -98,4 +98,4 @@ RUN nvim --headless -c "lua require'nvim-treesitter.install'.ensure_installed({'
 RUN chmod +x $NVIM_CONFIG_DIR/scripts/container_startup_script.sh
 
 # Set default command to run the tmux script
-CMD ["/home/devuser/.config/scripts/container_startup_script.sh"]
+ENTRYPOINT ["/home/devuser/.config/scripts/container_startup_script.sh"]
