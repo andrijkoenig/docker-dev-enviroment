@@ -21,7 +21,7 @@ docker run -it --rm -v $pwd/:/home/devuser/project -p 4200:4200 andrijkoenig/dev
 
 ---
 Usefull powershell alias to run the image in the current path
-```bash
+```powershell
 function RunDockerEnvironment {
     param(
         [string[]]$Ports
@@ -82,3 +82,30 @@ function RunDockerEnvironment {
 Set-Alias rde RunDockerEnvironment
 
 ```
+
+--- 
+
+New simpler nightly version:
+
+1. Place this file somewhere on your PATH (e.g. C:\Users\<you>\bin\nvim.ps1):
+```
+param(
+    [Parameter(ValueFromRemainingArguments = $true)]
+    $Args
+)
+
+# The image name you built
+$image = "andrijkoenig/dev-env:nightly"
+
+# Run Neovim container as if it were native
+docker run --rm -it `
+    -v "${PWD}:/workspace" `
+    -v "$env:USERPROFILE\.config\nvim:/root/.config/nvim" `
+    -w /workspace `
+    $image @Args
+``` 
+
+and in the $PROFILE
+
+` Set-Alias nvim "C:\Users\<you>\bin\nvim.ps1" ` 
+
