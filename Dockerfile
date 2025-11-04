@@ -6,7 +6,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8
 ENV NVIM_CONFIG_REPO=https://github.com/andrijkoenig/.config.git
 ENV NVIM_CONFIG_DIR=/root/.config
-ENV PATH="/opt/lua-language-server:/usr/local/bin:$PATH"
+ENV PATH="/opt/lua-language-server/bin:/usr/local/bin:$PATH"
+ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget xclip xsel git unzip ca-certificates gnupg lsb-release \
@@ -65,4 +67,4 @@ RUN nvim --headless "+Lazy! sync" +qa || true && \
 
 WORKDIR /root
 SHELL ["/bin/zsh", "-c"]
-ENTRYPOINT ["nvim"]
+ENTRYPOINT ["/root/.config/scripts/container_startup_script.sh && nvim"]
