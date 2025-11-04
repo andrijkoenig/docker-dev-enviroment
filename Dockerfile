@@ -66,5 +66,8 @@ RUN nvim --headless "+Lazy! sync" +qa || true && \
 
 
 WORKDIR /root
-SHELL ["/bin/zsh", "-c"]
-ENTRYPOINT ["/root/.config/scripts/container_startup_script.sh && nvim"]
+
+RUN chmod +x /root/.config/scripts/container_startup_script.sh
+
+# Use a shell form entrypoint to chain commands
+ENTRYPOINT ["/bin/zsh", "-c", "/root/.config/scripts/container_startup_script.sh && exec nvim"]
