@@ -6,9 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8
 ENV NVIM_CONFIG_REPO=https://github.com/andrijkoenig/.config.git
 ENV NVIM_CONFIG_DIR=/root/.config
-ENV PATH="/opt/lua-language-server/bin:/usr/local/bin:$PATH"
-ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
-ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 
 # Core dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -71,6 +69,10 @@ RUN nvim --headless "+Lazy! sync" +qa || true && \
     nvim --headless ":TSUpdate all" +qa || true
 
 WORKDIR /workspace
+
+ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false \
+    DOTNET_CLI_TELEMETRY_OPTOUT=1 \
+    PATH="/opt/lua-language-server/bin:/usr/local/bin:/root/.dotnet/tools:$PATH"
 
 SHELL ["/bin/zsh", "-c"]
 ENTRYPOINT ["/bin/zsh", "-ic"]
