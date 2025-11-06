@@ -58,11 +58,13 @@ RUN mkdir -p /opt/lua-language-server && \
     rm lua-language-server-3.6.25-linux-x64.tar.gz
 
 # Roslyn (C#)
-RUN curl -LO https://www.nuget.org/api/v2/package/Microsoft.CodeAnalysis.LanguageServer.neutral/5.0.0-1.25277.114 && \
-    mkdir -p /opt/roslyn && \
-    unzip 5.0.0-1.25277.114 -d /tmp/lsp && \
-    mv /tmp/lsp/content/LanguageServer/neutral /opt/roslyn && \
-    rm 5.0.0-1.25277.114 && rm -rf /tmp/lsp
+# RUN curl -LO https://www.nuget.org/api/v2/package/Microsoft.CodeAnalysis.LanguageServer.neutral/5.0.0-1.25277.114 && \
+#    mkdir -p /opt/roslyn && \
+#    unzip 5.0.0-1.25277.114 -d /tmp/lsp && \
+#    mv /tmp/lsp/content/LanguageServer/neutral /opt/roslyn && \
+#    rm 5.0.0-1.25277.114 && rm -rf /tmp/lsp
+	
+RUN dotnet tool install --global csharp-ls
 
 # Preload plugins
 RUN nvim --headless "+Lazy! sync" +qa || true && \
