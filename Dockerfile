@@ -7,7 +7,6 @@ ENV LANG=C.UTF-8
 ENV NVIM_CONFIG_REPO=https://github.com/andrijkoenig/.config.git
 ENV NVIM_CONFIG_DIR=/root/.config
 
-
 # Core dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget git unzip ca-certificates gnupg lsb-release \
@@ -75,5 +74,4 @@ ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false \
     PATH="/opt/lua-language-server/bin:/usr/local/bin:/root/.dotnet/tools:$PATH"
 
 SHELL ["/bin/zsh", "-c"]
-ENTRYPOINT ["/bin/zsh", "-ic"]
-CMD ["nvim"]
+ENTRYPOINT ["nvim"]
