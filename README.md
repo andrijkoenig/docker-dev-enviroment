@@ -1,12 +1,14 @@
 # 🛠 My Dev Environment (Docker)
 
 A containerized Neovim setup for a consistent, plugin-rich development environment.
+Designed so **runtime can be offline**: plugins/tools are downloaded at **build time**.
+Default entrypoint drops you into a **tmux session** (`dev`).
 
 ## 🚀 Quick Start
 
 ### Build the image
 ```bash
-docker build -t andrijkoenig/dev-env .
+docker build -f docker-dev-enviroment/Dockerfile -t andrijkoenig/dev-env .
 ```
 
 ### Pull the image 
@@ -100,7 +102,6 @@ $image = "andrijkoenig/dev-env:nightly"
 # Run Neovim container as if it were native
 docker run --rm -it `
     -v "${PWD}:/workspace" `
-    -v "$env:USERPROFILE\.config\nvim:/root/.config/nvim" `
     -w /workspace `
     $image @Args
 ``` 
