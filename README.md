@@ -1,3 +1,11 @@
+> ⚠️ **Repository Status: Read-Only**
+>
+> This repository is no longer actively maintained and is kept for reference purposes only.
+>
+> My Development Enviroment has moved to a **Nix-based Docker container setup**, which you can find here:
+>
+> https://github.com/andikon/nix-dev-env
+
 # 🛠 My Dev Environment (Docker)
 
 A containerized Neovim setup for a consistent, plugin-rich development environment.
